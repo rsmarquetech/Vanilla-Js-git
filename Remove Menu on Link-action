@@ -1,0 +1,7 @@
+      /*==================== REMOVE NAVMENU ON LINK ACTION ====================*/
+      const navItem = document.querySelectorAll('.nav-item') 
+       
+      navItem.forEach(n => n.addEventListener('click', ()=>{
+        const navMenu = document.getElementById('navbarItems') 
+        navMenu.classList.remove('showMenu')
+      })) 
