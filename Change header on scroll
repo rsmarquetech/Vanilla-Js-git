@@ -1,0 +1,16 @@
+/*==================== CHANGE HEADER/NAVBAR BACKGROUND ====================*/ 
+    window.addEventListener('scroll', ()=>{
+
+      // IT WILL CHANGE HEAHER BACKGROUND WHEN SCROLL PAGE IS EQUAL OR LESS THAN 100vh
+
+      const navbar = document.getElementById('navbar')  
+      if(this.scrollY >= 100) 
+      {
+        navbar.classList.add('scroll-navbar');
+      } 
+ 
+      else 
+      {
+        navbar.classList.remove('scroll-navbar')
+      }
+    }) 
