@@ -1,0 +1,13 @@
+const navMenu = document.querySelector('.navbar-items'),
+        toggleMenu = document.querySelector('.navToggle'),
+        navClose = document.querySelector('.navClose')
+         
+          toggleMenu.addEventListener('click', () =>{
+              navMenu.classList.toggle('showMenu')
+          }); 
+
+        if(navClose){
+          navClose.addEventListener('click', () =>{
+              navMenu.classList.remove('showMenu');
+          });
+        }; 
