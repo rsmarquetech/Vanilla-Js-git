@@ -1,0 +1,70 @@
+Note:-
+(1) First, Include express 
+(1) then, Include express validator module using require('express-validator')
+    npm install express-validator
+
+(2) Write all the validation rules within the exports.form=[]
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/validate-form" method="POST">
+        <div className="input__feild">
+            <label>Name</label>
+            <input type="text" placeholder="Enter your Name" name="name" value=" ">
+        </div>
+
+        <div className="input__feild">
+            <label>Email</label>
+            <input type="text" placeholder="Enter your Email" name="email" value=" ">
+        </div>
+
+        <div className="input__feild">
+            <label>Password</label>
+            <input type="text" placeholder="Password" name="pass" value=" ">
+        </div>
+
+        <div className="input__feild">
+            <label>Confirm Password</label>
+            <input type="text" placeholder="Confirm Password" name="confPass" value=" ">
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+ 
+
+
+================= ==>> Validation <<== =================
+const { check,sanitizeBody } = require('express-validator');
+
+exports.form=[
+  // Name validation
+  check('name').trim().notEmpty().matches(/^[a-zA-Z ]*$/),
+
+  // email address validation
+  check('email').notEmpty().normalizeEmail().isEmail(),
+
+  // password validation
+  check('pass').trim().notEmpty().isLength({ min: 6 }).withMessage('password must be minimum 6 length')
+  .matches(/(?=.*?[A-Z])/).withMessage('At least one Uppercase')
+  .matches(/(?=.*?[a-z])/).withMessage('At least one Lowercase')
+  .matches(/(?=.*?[0-9])/).withMessage('At least one Number')
+  .matches(/(?=.*?[#?!@$%^&*-])/).withMessage('At least one special character')
+  .not().matches(/^$|\s+/).withMessage('White space not allowed'),
+
+  // confirm password validation
+  check('confPass').custom((value, { req }) => {
+       if (value !== req.body.pass) {
+             throw new Error('Password does not match !');
+        }
+        return true;
+   })
+]
